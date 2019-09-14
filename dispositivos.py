@@ -3,7 +3,7 @@ from flask import jsonify, make_response, abort
 
 from pymongo import MongoClient
 
-client = MongoClient("mongodb://localhost:27017/") # Local
+client = MongoClient("mongodb://mongodb:27017/") # Local
 db = client.dispositivos
 
 def get_dict_from_mongodb():
