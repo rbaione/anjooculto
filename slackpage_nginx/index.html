@@ -1,0 +1,62 @@
+<html>
+<head>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.2.js"></script>
+</head>
+<body>
+        <h1>Anjo Oculto - Envio de mensagem</h1> <br>
+<form id="slackform">
+  Channel : <input id="target" value="#fiap"/>
+  <br/>
+  Messsage : <input id="msgInput"/>
+  <br/> <br>
+ <input type="button" value="enviar" onclick="postMSG()"/>
+ </form>
+ <div id='result'></div>
+</html>
+<script type="text/javascript">
+// Definir a função postMSG(), conferir Canal e Webhook:
+  function postMSG(){
+    // get message to be posted
+    var msg = document.getElementById('msgInput').value
+    // get target channel or team member
+    var chan = document.getElementById('target').value
+    // format payload for slack
+    var sdata = formatForSlack(msg, chan)
+    // log in console
+    console.log(sdata)
+    // post
+     $.ajax({
+       // url is what you get from activating the "Incoming WebHooks" slack integration
+       // if you leave, you should see an error message "No Team", status 404
+       url: 'https://hooks.slack.com/services/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',
+       type: 'POST',
+       processData: true,
+       data : sdata ,
+       success : function(data) {
+         // success will show on page
+         console.log(data)
+         $('#result').html(data);
+       },
+       error: function(data){
+         // error will show error object
+         console.log(data)
+         $('#result').html("error:"+JSON.stringify(data));
+      }
+     });
+  }
+</script>
+<script type="text/javascript">
+// Definir a função formatForSlack() que ajusta os dados:
+
+  function formatForSlack(msg, chan){
+    var payload ={
+      "channel":chan,
+      "username":'Anjo_Oculto',
+      "text": msg,
+      // https://www.webfx.com/tools/emoji-cheat-sheet/
+      "icon_emoji":':ghost:'
+    };
+    // return json string of payload
+    return JSON.stringify(payload)
+  }
+ </script>
