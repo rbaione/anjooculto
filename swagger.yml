@@ -1,0 +1,119 @@
+swagger: "2.0"
+info:
+  description: Swagger file
+  version: "1.0.0"
+  title: Swagger ReST Dispositivos
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+paths:
+  /dispositivos:
+    get:
+      operationId: dispositivos.read_all
+      tags:
+        - Dispositivos
+      summary: Lista de Dispositivos
+      description: Lista de Dispositivos
+      responses:
+        200:
+          description: Sucesso na leitura de Dispositivos
+          schema:
+            type: array
+            items:
+              properties:
+                id_disp:
+                  type: string
+                full_name:
+                  type: string
+                timestamp:
+                  type: string
+
+    post:
+      operationId: dispositivos.create
+      tags:
+        - Dispositivos
+      summary: Cria um dispositivo e adiciona na lista de Dispositivos
+      description: Adiciona na lista de Dispositivos
+      parameters:
+        - name: disp
+          in: body
+          description: Dispositivo a ser criado
+          required: True
+          schema:
+            type: object
+            properties:
+              id_disp:
+                type: string
+                description: Identificador do Dispositivo
+              full_name:
+                type: string
+                description: Nome Completo
+      responses:
+        201:
+          description: Sucesso ao criar
+
+  /dispositivos/{id_disp}:
+    get:
+      operationId: dispositivos.read_one
+      tags:
+        - Dispositivos
+      summary: Leitura de um dispositivo da lista de Dispositivos
+      description: Leitura de um dispositivo
+      parameters:
+        - name: id_disp
+          in: path
+          description: ID Dispositivo
+          type: string
+          required: True
+      responses:
+        200:
+          description: Sucesso na leitura de um dispositivo
+          schema:
+            properties:
+              id_disp:
+                type: string
+              full_name:
+                type: string
+              timestamp:
+                type: string
+    put:
+      operationId: dispositivos.update
+      tags:
+        - Dispositivos
+      summary: Update na lista de Dispositivos
+      description: Update na lista
+      parameters:
+        - name: id_disp
+          in: path
+          description: ID do Dispositivo
+          type: string
+          required: True
+        - name: disp
+          in: body
+          schema:
+            type: object
+            properties:              
+              full_name:
+                type: string
+      responses:
+        200:
+          description: Sucesso ao atualizar
+
+    delete:
+      operationId: dispositivos.delete
+      tags:
+        - Dispositivos
+      summary: Deletar um dispositivo na lista de Dispositivos
+      description: Deleta um dispositivo
+      parameters:
+        - name: id_disp
+          in: path
+          type: string
+          required: True
+      responses:
+        200:
+          description: Sucesso ao deletar
