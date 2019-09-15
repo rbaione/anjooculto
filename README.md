@@ -41,3 +41,7 @@ docker run --name anjooculto -it -p 5000:5000 --network=anjo-net -d rbaione/anjo
 Após executar os dois Dockers ficará disponivel dois links no topo do console, clicar no link de nome 5000.
 
 Com isso será executado o cadastro e manutenção de Dispositivos.
+
+### Testes Utilizando o Maven
+
+Na pasta bddfiap estão os arquivos necessários para execução dos testes utilizando o Maven.
